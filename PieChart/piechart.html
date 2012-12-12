@@ -19,23 +19,29 @@
 window.onload = createPieChart;
 window.onresize = createPieChart;
 
-function sizeCanvas(){
+function sizeCanvas(scale){
+	if(scale == null){scale=100}
 	winW = window.innerWidth;
-	winW = winW * .8;
-
-			
-			var graphs = document.getElementsByClassName("piechart");
-			var numberOfGraphs = graphs.length - 1;
-
+	winW = winW * (scale/100);
+	
+	var graphs = document.getElementsByClassName("piechart");
+	var numberOfGraphs = graphs.length;
+	
+	if(window.devicePixelRatio == 2) { winW *= 2;
+		for(var i = 0; i < numberOfGraphs; i++){
+			graphs[i].style.width = scale + "%";
+		}
+	}
+	
+	for(var i = 0; i < numberOfGraphs; i++){
 		
-			while(numberOfGraphs > -1){
-				graphs[numberOfGraphs].width = winW;
-				graphs[numberOfGraphs].height = winW;
-				numberOfGraphs--;
-			}
+		
+		graphs[i].width = winW;
+		graphs[i].height = winW;
+	}	
 }
 function createPieChart() {
-	sizeCanvas();
+	sizeCanvas(80);
 	//
 	// create a PieChart.
 	// 
@@ -45,34 +51,46 @@ function createPieChart() {
 			data: [2.4, 2.6, 3.0, 5.3, 13.9, 72.4],
 			labels: ["Microsoft", "Symbian", "Bada", "Blackberry OS", "iOS", "Android", ],
 				colors: [
-	            	["#FFDAB9", "#ff0000"],
-	            	["#ff0000", "#ddeeff"],
-	            	["#E0FFFF", "#E0FFFF"],
-					["#FFDAB9", "#ff0000"],
-	            	["#E6E6FA", "#E6E6FA"],
-	            	["#E0FFFF", "#E0FFFF"]
+	            	["#d37d66", "#ff0000"],
+	            	["#d3a166", "#ddeeff"],
+	            	["#4e75b5", "#E0FFFF"],
+					["#9164a4", "#ff0000"],
+	            	["#85bbe4", "#E6E6FA"],
+	            	["#74b616", "#E0FFFF"]
 				]
 		
 		}
 	);
 	globalMarketShare.draw();
-	var globalMarketShare2 = new PieChart( "piechart2", 
+	var androidGlobal = new PieChart( "piechart2", 
 		{
 			includeLabels: true, 
-			data: [2.4, 2.6, 3.0, 5.3, 13.9, 72.4],
-			labels: ["Microsoft", "Symbian", "Bada", "Blackberry OS", "iOS", "Android", ],
+			data: [10.3, 50.6, 27.5, 6.7],
+			labels: ["2.2 Froyo", "2.3.3 - 2.3.7 Gingerbread", "4.0.3 - 4.0.4 ICS", "4.1 - 4.2 Jelly Bean" ],
 				colors: [
-	            	["#FFDAB9", "#ff0000"],
-	            	["#ff0000", "#ddeeff"],
-	            	["#E0FFFF", "#E0FFFF"],
-					["#FFDAB9", "#ff0000"],
-	            	["#E6E6FA", "#E6E6FA"],
-	            	["#E0FFFF", "#E0FFFF"]
+	            	["#00cc33", "#ff0000"],
+	            	["#00bb05", "#ddeeff"],
+	            	["#00aa66", "#E0FFFF"],
+					["#00dd34", "#ff0000"]
 				]
 		
 		}
 	);
-	globalMarketShare2.draw();
+	androidGlobal.draw();
+	var android4Global = new PieChart( "piechart3", 
+		{
+			includeLabels: true, 
+			data: [27.5, 5.9, .8],
+			labels: ["4.0 ICS", "4.1 Jelly Bean", "4.2 Jelly Bean" ],
+				colors: [
+	            	["#00cc33", "#ff0000"],
+	            	["#00bb05", "#ddeeff"],
+	            	["#00aa66", "#E0FFFF"]
+				]
+		
+		}
+	);
+	android4Global.draw();
 
 /*
  * If you want to draw the labels separately, you can set

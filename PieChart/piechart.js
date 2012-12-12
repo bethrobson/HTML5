@@ -46,6 +46,7 @@ function PieChart(id, o) {
     	];
 
 	this.canvas = document.getElementById(id);
+	
 }
 
 PieChart.prototype = {
@@ -59,6 +60,7 @@ PieChart.prototype = {
 	draw: function() {
 		var self = this;
 		var context = this.canvas.getContext("2d");
+		if(window.devicePixelRatio == 2) {context.scale(1,1);}
 		for (var i = 0; i < this.data.length; i++) {
 			this.drawSegment(this.canvas, context, i, this.data[i], false, this.includeLabels);
 		}
