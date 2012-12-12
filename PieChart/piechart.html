@@ -3,36 +3,76 @@
 <head>
 <title>Pie Chart</title>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="piechart.js"></script>
-<style>
+<style type="text/css">
+	.piechart{
+		display:block;
+		margin:0 auto;
+	}
 </style>
 <script>
 
+
+
 // kick things off
 window.onload = createPieChart;
+window.onresize = createPieChart;
 
+function sizeCanvas(){
+	winW = window.innerWidth;
+	winW = winW * .8;
+
+			
+			var graphs = document.getElementsByClassName("piechart");
+			var numberOfGraphs = graphs.length - 1;
+
+		
+			while(numberOfGraphs > -1){
+				graphs[numberOfGraphs].width = winW;
+				graphs[numberOfGraphs].height = winW;
+				numberOfGraphs--;
+			}
+}
 function createPieChart() {
-
+	sizeCanvas();
 	//
 	// create a PieChart.
 	// 
-	var pieChart = new PieChart( "piechart", 
+	var globalMarketShare = new PieChart( "piechart", 
 		{
 			includeLabels: true, 
-			data: [120, 100, 140],
-			labels: ["120%", "100%", "140%"],
-			colors: [
-            	["#FFDAB9", "#FFDAB9"],
-            	["#E6E6FA", "#E6E6FA"],
-            	["#E0FFFF", "#E0FFFF"]
-			]
+			data: [2.4, 2.6, 3.0, 5.3, 13.9, 72.4],
+			labels: ["Microsoft", "Symbian", "Bada", "Blackberry OS", "iOS", "Android", ],
+				colors: [
+	            	["#FFDAB9", "#ff0000"],
+	            	["#ff0000", "#ddeeff"],
+	            	["#E0FFFF", "#E0FFFF"],
+					["#FFDAB9", "#ff0000"],
+	            	["#E6E6FA", "#E6E6FA"],
+	            	["#E0FFFF", "#E0FFFF"]
+				]
+		
 		}
 	);
-
-	//
-	// nothing appears until you call draw().
-	//
-	pieChart.draw();
+	globalMarketShare.draw();
+	var globalMarketShare2 = new PieChart( "piechart2", 
+		{
+			includeLabels: true, 
+			data: [2.4, 2.6, 3.0, 5.3, 13.9, 72.4],
+			labels: ["Microsoft", "Symbian", "Bada", "Blackberry OS", "iOS", "Android", ],
+				colors: [
+	            	["#FFDAB9", "#ff0000"],
+	            	["#ff0000", "#ddeeff"],
+	            	["#E0FFFF", "#E0FFFF"],
+					["#FFDAB9", "#ff0000"],
+	            	["#E6E6FA", "#E6E6FA"],
+	            	["#E0FFFF", "#E0FFFF"]
+				]
+		
+		}
+	);
+	globalMarketShare2.draw();
 
 /*
  * If you want to draw the labels separately, you can set
@@ -48,25 +88,28 @@ function createPieChart() {
  * If you want to select a segment to highight it, you can
  * call select() for a given segment. Here's a little snippet
  * that animates selecting each segment.
- *
+ **
 	var segment = 0;
 	function nextSegment() {
-		pieChart.select(segment);
+		globalMarketShare.select(segment);
 		segment++;
-		if (segment < pieChart.data.length) {
+		if (segment < globalMarketShare.data.length) {
 			setTimeout(nextSegment, 1000);
 		}
 	}
-	setTimeout(nextSegment, 1000);
- */
+	setTimeout(nextSegment, 1000);*/
 
 }
 </script>
 </head>
 <body>
-
-<canvas id="piechart" width="400" height="400">
+<canvas id="piechart" class="piechart">
 </canvas>
+<canvas id="piechart2" class="piechart">
+</canvas>
+<canvas id="piechart3" class="piechart">
+</canvas>
+
 
 </body>
 </html>
