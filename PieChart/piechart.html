@@ -3,36 +3,94 @@
 <head>
 <title>Pie Chart</title>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="piechart.js"></script>
-<style>
+<style type="text/css">
+	.piechart{
+		display:block;
+		margin:0 auto;
+	}
 </style>
 <script>
 
+
+
 // kick things off
 window.onload = createPieChart;
+window.onresize = createPieChart;
 
+function sizeCanvas(scale){
+	if(scale == null){scale=100}
+	winW = window.innerWidth;
+	winW = winW * (scale/100);
+	
+	var graphs = document.getElementsByClassName("piechart");
+	var numberOfGraphs = graphs.length;
+	
+	if(window.devicePixelRatio == 2) { winW *= 2;
+		for(var i = 0; i < numberOfGraphs; i++){
+			graphs[i].style.width = scale + "%";
+		}
+	}
+	
+	for(var i = 0; i < numberOfGraphs; i++){
+		
+		
+		graphs[i].width = winW;
+		graphs[i].height = winW;
+	}	
+}
 function createPieChart() {
-
+	sizeCanvas(80);
 	//
 	// create a PieChart.
 	// 
-	var pieChart = new PieChart( "piechart", 
+	var globalMarketShare = new PieChart( "piechart", 
 		{
 			includeLabels: true, 
-			data: [120, 100, 140],
-			labels: ["120%", "100%", "140%"],
-			colors: [
-            	["#FFDAB9", "#FFDAB9"],
-            	["#E6E6FA", "#E6E6FA"],
-            	["#E0FFFF", "#E0FFFF"]
-			]
+			data: [2.4, 2.6, 3.0, 5.3, 13.9, 72.4],
+			labels: ["Microsoft", "Symbian", "Bada", "Blackberry OS", "iOS", "Android", ],
+				colors: [
+	            	["#d37d66", "#ff0000"],
+	            	["#d3a166", "#ddeeff"],
+	            	["#4e75b5", "#E0FFFF"],
+					["#9164a4", "#ff0000"],
+	            	["#85bbe4", "#E6E6FA"],
+	            	["#74b616", "#E0FFFF"]
+				]
+		
 		}
 	);
-
-	//
-	// nothing appears until you call draw().
-	//
-	pieChart.draw();
+	globalMarketShare.draw();
+	var androidGlobal = new PieChart( "piechart2", 
+		{
+			includeLabels: true, 
+			data: [10.3, 50.6, 27.5, 6.7],
+			labels: ["2.2 Froyo", "2.3.3 - 2.3.7 Gingerbread", "4.0.3 - 4.0.4 ICS", "4.1 - 4.2 Jelly Bean" ],
+				colors: [
+	            	["#00cc33", "#ff0000"],
+	            	["#00bb05", "#ddeeff"],
+	            	["#00aa66", "#E0FFFF"],
+					["#00dd34", "#ff0000"]
+				]
+		
+		}
+	);
+	androidGlobal.draw();
+	var android4Global = new PieChart( "piechart3", 
+		{
+			includeLabels: true, 
+			data: [27.5, 5.9, .8],
+			labels: ["4.0 ICS", "4.1 Jelly Bean", "4.2 Jelly Bean" ],
+				colors: [
+	            	["#00cc33", "#ff0000"],
+	            	["#00bb05", "#ddeeff"],
+	            	["#00aa66", "#E0FFFF"]
+				]
+		
+		}
+	);
+	android4Global.draw();
 
 /*
  * If you want to draw the labels separately, you can set
@@ -48,25 +106,28 @@ function createPieChart() {
  * If you want to select a segment to highight it, you can
  * call select() for a given segment. Here's a little snippet
  * that animates selecting each segment.
- *
+ **
 	var segment = 0;
 	function nextSegment() {
-		pieChart.select(segment);
+		globalMarketShare.select(segment);
 		segment++;
-		if (segment < pieChart.data.length) {
+		if (segment < globalMarketShare.data.length) {
 			setTimeout(nextSegment, 1000);
 		}
 	}
-	setTimeout(nextSegment, 1000);
- */
+	setTimeout(nextSegment, 1000);*/
 
 }
 </script>
 </head>
 <body>
-
-<canvas id="piechart" width="400" height="400">
+<canvas id="piechart" class="piechart">
 </canvas>
+<canvas id="piechart2" class="piechart">
+</canvas>
+<canvas id="piechart3" class="piechart">
+</canvas>
+
 
 </body>
 </html>
