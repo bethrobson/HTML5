@@ -87,11 +87,25 @@ PieChart.prototype = {
 		context.save();
 		var x = Math.floor(canvas.width / 2);
 		var y = Math.floor(canvas.height / 2);
-		var angle = self.degreesToRadians(self.sumTo(self.data, i));
+		var angle;
+		var angleD = self.sumTo(self.data, i);
+		var flip = (angleD < 90 || angleD > 270) ? false : true;
+console.log(flip);
 
 		context.translate(x, y);
-		context.rotate(angle);
-		context.textAlign = "right";
+		if (flip) {
+			angleD = angleD-180;
+			context.textAlign = "left";
+			angle = self.degreesToRadians(angleD);
+			context.rotate(angle);
+			context.translate(-(x + (canvas.width * 0.5))+15, -(canvas.height * 0.05)-10);
+		}
+		else {
+			context.textAlign = "right";
+			angle = self.degreesToRadians(angleD);
+			context.rotate(angle);
+		}
+		//context.textAlign = "right";
 		var fontSize = Math.floor(canvas.height / 25);
 		context.font = fontSize + "pt Helvetica";
 
