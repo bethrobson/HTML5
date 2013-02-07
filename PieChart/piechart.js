@@ -90,7 +90,6 @@ PieChart.prototype = {
 		var angle;
 		var angleD = self.sumTo(self.data, i);
 		var flip = (angleD < 90 || angleD > 270) ? false : true;
-console.log(flip);
 
 		context.translate(x, y);
 		if (flip) {
